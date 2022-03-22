@@ -7,7 +7,7 @@ import {styles} from './styles';
 import ChevronRight from '../../../../assets/icons/ChevronRight';
 import {ProgressiveImage} from '../../../../components';
 import Crown from '../../../../assets/icons/Crown';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {GlobalState} from '../../../../redux/reducers';
 import EditProfileIcon from '../../../../assets/icons/Edit';
 import RewardsIcon from '../../../../assets/icons/Home';
@@ -15,21 +15,20 @@ import SettingsIcon from '../../../../assets/icons/Home';
 import HelpIcon from '../../../../assets/icons/Home';
 import LogoutIcon from '../../../../assets/icons/Home';
 import Promotion from '../../../../assets/vectors/Premium';
+import {Screens} from '../../../../navigation/Screens';
+import {AppDispatch} from '../../../../redux/store';
+import {AuthActions} from '../../../../redux/reducers/auth/actions';
 
 const style = EStyleSheet.create(styles);
 
 export const Profile = ({navigation}) => {
-  // const profile = useContext(UserContext);
+  const dispatch = useDispatch<AppDispatch>();
   const profile = useSelector((state: GlobalState) => state.auth.profile);
-  console.log('PROFKL e ,', profile);
-  const logout = () => {
-    auth().signOut();
-  };
   const ProfileMenuItems = [
     {
       name: 'Edit Profile',
       icon: EditProfileIcon,
-      onPress: () => navigation.navigate('EditProfile'),
+      onPress: () => navigation.navigate(Screens.EDIT_PROFILE),
       background: '#613aff',
     },
     {
@@ -41,25 +40,25 @@ export const Profile = ({navigation}) => {
     {
       name: 'My Events',
       icon: RewardsIcon,
-      onPress: () => navigation.navigate('MyEvents'),
+      onPress: () => navigation.navigate(Screens.MY_EVENTS),
       background: '#00bcd4',
     },
     {
       name: 'Settings',
       icon: SettingsIcon,
-      onPress: () => navigation.navigate('Settings'),
+      onPress: () => navigation.navigate(Screens.SETTINGS),
       background: '#ffb63a',
     },
     {
       name: 'Help',
       icon: HelpIcon,
-      onPress: () => navigation.navigate('FAQ'),
+      onPress: () => navigation.navigate(Screens.GET_HELP),
       background: '#9c27b0',
     },
     {
       name: 'Logout',
       icon: LogoutIcon,
-      onPress: logout,
+      onPress: () => dispatch(AuthActions.logout()),
       background: '#ff3a3a',
     },
   ];

@@ -1,8 +1,9 @@
-import config from '../../config';
+import {Colors} from '../../../../configs';
 
-export default styles = {
+export const styles = {
   Settings: {
     paddingHorizontal: 20,
+    backgroundColor: Colors.colorBlack,
   },
   TitleContainer: {
     marginBottom: 15,
@@ -27,6 +28,7 @@ export default styles = {
   SettingsIcon: {
     height: 15,
     width: 15,
+    paddingRight: 15,
   },
   SettingsName: {
     fontFamily: 'Poppins-Medium',
@@ -35,15 +37,12 @@ export default styles = {
     paddingLeft: 15,
     paddingTop: 3,
   },
-  SettingsIcon: {
-    paddingRight: 15,
-  },
   Soon: {
     position: 'absolute',
     top: 0,
     right: 0,
     color: '#333',
-    backgroundColor: config.colorMain,
+    backgroundColor: Colors.colorMain,
     fontFamily: 'Poppins-Medium',
     fontSize: 10,
     textTransform: 'uppercase',

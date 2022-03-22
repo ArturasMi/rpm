@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {View, ScrollView, Text, StatusBar} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import styles from './styles';
+import {styles} from './styles';
 
-import ScreenTitle from '../../components/ScreenTitle';
-import ListEmpty from '../../components/ListEmpty';
+import {ScreenTitle} from '../../../../components';
 
 const style = EStyleSheet.create(styles);
 
-const PrivacySecurity = ({navigation}) => {
+export const PrivacySecurity = ({navigation}) => {
   const lastEdit =
     'Published March 16, 2020. Effective as of April 16, 2020. These Terms replace and supersede all prior versions.';
   return (
@@ -69,5 +68,3 @@ const PrivacySecurity = ({navigation}) => {
     </ScrollView>
   );
 };
-
-export default PrivacySecurity;

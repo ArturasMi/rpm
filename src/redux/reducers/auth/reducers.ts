@@ -28,6 +28,9 @@ const Reduction = {
           error: action.payload.userInfo.message,
         };
       }
+      case AuthActionTypes.LOGOUT_FULFILLED: {
+        return initialState;
+      }
       default:
         return state;
     }

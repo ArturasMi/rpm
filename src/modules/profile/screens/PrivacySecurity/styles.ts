@@ -1,4 +1,4 @@
-export default styles = {
+export const styles = {
   PrivacySecurity: {
     flex: 1,
     paddingHorizontal: 20,

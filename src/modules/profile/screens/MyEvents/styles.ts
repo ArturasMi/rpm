@@ -1,4 +1,4 @@
-export default styles = {
+export const styles = {
   Events: {
     flex: 1,
   },

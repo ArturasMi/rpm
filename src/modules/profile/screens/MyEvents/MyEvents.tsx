@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {View, FlatList, Text, StatusBar} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import styles from './styles';
+import {styles} from './styles';
 
-import ScreenTitle from '../../components/ScreenTitle';
-import SingleEvent from '../../components/SingleEvent';
-import ListEmpty from '../../components/ListEmpty';
+import {ScreenTitle, EmptyList} from '../../../../components';
+import SingleEvent from '../../../../components/SingleEvent/SingleEvent';
 
 const style = EStyleSheet.create(styles);
 
-const Home = ({navigation}) => {
+export const MyEvents = ({navigation}) => {
   const [events, updateEvents] = useState(undefined);
 
   useEffect(() => {
@@ -31,12 +30,10 @@ const Home = ({navigation}) => {
         contentContainerStyle={style.EventListContainer}
         data={events}
         renderItem={SingleEvent}
-        keyExtractor={(item) => item.id}
-        ListEmptyComponent={ListEmpty}
+        keyExtractor={item => item.id}
+        ListEmptyComponent={EmptyList}
         ListHeaderComponent={() => <ScreenTitle title="My Events" />}
       />
     </View>
   );
 };
-
-export default Home;

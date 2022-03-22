@@ -1,4 +1,4 @@
-export default styles = {
+export const styles = {
   FAQ: {
     flex: 1,
     paddingHorizontal: 20,
@@ -53,6 +53,7 @@ export default styles = {
   BlockIcon: {
     height: 15,
     width: 15,
+    paddingRight: 15,
   },
   BlockName: {
     fontFamily: 'Poppins-Medium',
@@ -60,8 +61,5 @@ export default styles = {
     color: '#fff',
     paddingLeft: 15,
     paddingTop: 3,
-  },
-  BlockIcon: {
-    paddingRight: 15,
   },
 };

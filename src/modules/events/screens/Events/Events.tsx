@@ -38,6 +38,7 @@ export const Events = ({navigation}) => {
         ListHeaderComponent={() => (
           <ScreenTitle title="Events" disableBack={true} onBack={undefined} />
         )}
+        ListFooterComponent={() => <View style={{height: 90}} />}
         onEndReached={loadMore}
       />
     </View>

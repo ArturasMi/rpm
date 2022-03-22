@@ -15,6 +15,10 @@ const ActionCreator = {
     type: AuthActionTypes.USER_CREATE_PROFILE,
     payload: firestore().collection('users').doc(id).set(payload),
   }),
+  logout: () => ({
+    type: AuthActionTypes.LOGOUT,
+    payload: auth().signOut(),
+  }),
 };
 
 export {ActionCreator as AuthActions};

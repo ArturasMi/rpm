@@ -19,8 +19,6 @@ export const Gallery = ({navigation}) => {
   );
   const [collections, updateCollections] = useState(collectionsSelector);
 
-  console.log('collections ', collections);
-
   const GalleryItem = ({item, index}) => {
     const margin = isOdd(index) ? {marginLeft: 10} : {marginRight: 10};
     return (
@@ -28,7 +26,9 @@ export const Gallery = ({navigation}) => {
         <FadeIn delay={delayBetween * index + delayBetween} key={item.id}>
           <TouchableOpacity
             activeOpacity={1}
-            onPress={() => navigation.navigate('GalleryWatch', {id: item.id})}>
+            onPress={() =>
+              navigation.navigate('GalleryWatch', {item: item._data.image})
+            }>
             <View style={style.GalleryItem}>
               <View style={{...margin, ...style.ImageContainer}}>
                 <ProgressiveImage
@@ -121,6 +121,7 @@ export const Gallery = ({navigation}) => {
                 </>
               ) : null
             }
+            ListFooterComponent={() => <View style={{height: 90}} />}
           />
         ) : (
           <EmptyList size={undefined} color={undefined} />

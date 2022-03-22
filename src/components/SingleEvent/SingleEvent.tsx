@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {styles} from './style';
 
 import {ProgressiveImage} from '../../components';
+import {Screens} from '../../navigation/Screens';
 
 const style = EStyleSheet.create(styles);
 
@@ -16,14 +17,12 @@ const SingleEvent = data => {
   return (
     <TouchableOpacity
       activeOpacity={1}
-      // onPress={e =>
-      //   navigation.navigate('EventDetails', {
-      //     ...data.item._data,
-      //     id: data.item.id,
-      //   })
-      // }
-      // underlayColor={'rgba(0,0,0,0)'}
-    >
+      onPress={e =>
+        navigation.navigate(Screens.EVENT_DETAILS, {
+          ...data.item._data,
+          id: data.item.id,
+        })
+      }>
       <FadeIn delay={data.index * 50}>
         <View style={style.SingleEvent}>
           <ProgressiveImage

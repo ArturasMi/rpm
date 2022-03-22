@@ -8,7 +8,6 @@ import {Colors} from '../../../../configs';
 import {GlobalState} from '../../../../redux/reducers';
 import {EventsActions} from '../../../../redux/reducers/events/actions';
 import {GalleryActions} from '../../../../redux/reducers/gallery/actions';
-import {AuthActions} from '../../../../redux/reducers/auth/actions';
 import {AppDispatch} from '../../../../redux/store';
 import {styles} from './styles';
 import {Screens} from '../../../../navigation/Screens';
@@ -21,6 +20,7 @@ export const Home = ({navigation}) => {
 
   useEffect(() => {
     dispatch(GalleryActions.getGallery());
+    dispatch(EventsActions.getEvents(10));
   }, []);
 
   React.useEffect(() => {

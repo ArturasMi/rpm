@@ -9,18 +9,18 @@ import {
 } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import styles from './styles';
-import config from '../../config';
+import {styles} from './styles';
 
-import ScreenTitle from '../../components/ScreenTitle';
-import Google from '../../assets/icons/Google';
-import Facebook from '../../assets/icons/Facebook';
-import PaperPlane from '../../assets/icons/PaperPlane';
-import FadeIn from '../../components/Animate/FadeIn';
+import {ScreenTitle} from '../../../../components';
+import Google from '../../../../assets/icons/Google';
+import Facebook from '../../../../assets/icons/Facebook';
+import PaperPlane from '../../../../assets/icons/PaperPlane';
+import FadeIn from '../../../../components/Animate/FadeIn';
+import {Colors} from '../../../../configs';
 
 const style = EStyleSheet.create(styles);
 
-const FAQ = ({navigation}) => {
+export const FAQ = ({navigation}) => {
   const [currentFAQ, changeCurrent] = useState(0);
   const [faqs, updateFaqs] = useState([
     {
@@ -48,7 +48,7 @@ const FAQ = ({navigation}) => {
     );
   };
 
-  const SectionContent = (opts) => {
+  const SectionContent = opts => {
     return (
       <FadeIn delay={100}>
         <View>
@@ -105,7 +105,7 @@ const FAQ = ({navigation}) => {
           <FadeIn delay={100}>
             <View style={style.Block}>
               <View style={style.BlockIcon}>
-                <PaperPlane size={15} color={config.colorMain} />
+                <PaperPlane size={15} color={Colors.colorMain} />
               </View>
               <Text style={style.BlockName}>Send a letter</Text>
               <View style={style.ChevronHolder}></View>
@@ -134,8 +134,8 @@ const FAQ = ({navigation}) => {
           </View>
         </TouchableOpacity>
       </FadeIn>
+
+      <View style={{height: 90}} />
     </ScrollView>
   );
 };
-
-export default FAQ;

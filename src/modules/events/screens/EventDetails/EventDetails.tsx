@@ -1,7 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {View, StatusBar, Animated} from 'react-native';
+import {
+  View,
+  StatusBar,
+  Animated,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import {Button, ProgressiveImage} from '../../../../components';
+import ArrowLeft from '../../../../assets/icons/ArrowLeft';
 import {styles} from './styles';
+import {useSelector} from 'react-redux';
+import {GlobalState} from '../../../../redux/reducers';
 
 const style = EStyleSheet.create(styles);
 
@@ -24,7 +35,7 @@ export const EventDetails = ({route, navigation}) => {
         backgroundColor="transparent"
         barStyle="light-content"
       />
-      {/* <Animated.View style={{opacity}}>
+      <Animated.View style={{opacity}}>
         <ScrollView contentContainerStyle={style.EventDetailsContainer}>
           <>
             <View style={style.EventHeader}>
@@ -38,12 +49,11 @@ export const EventDetails = ({route, navigation}) => {
               </View>
 
               <View style={style.BannerTint}>
-                <TouchableHighlight
+                <TouchableOpacity
                   style={style.GoBack}
-                  underlayColor="rgba(0,0,0,0)"
-                  onPress={() => navigation.goBack(null)}>
+                  onPress={navigation.goBack}>
                   <ArrowLeft color="#fff" size={25} />
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={style.DetailsPart1}>
@@ -66,102 +76,106 @@ export const EventDetails = ({route, navigation}) => {
               <Text style={style.DetailsTitle}>Location</Text>
               <Text style={style.DetailsDescription}>{data.location}</Text>
               <View
-                style={{height: 250, width: '100%', backgroundColor: '#181820'}}
+                style={{
+                  height: 250,
+                  width: '100%',
+                  marginBottom: 90,
+                  backgroundColor: '#181820',
+                }}
               />
             </View>
           </>
         </ScrollView>
-      </Animated.View> */}
+      </Animated.View>
     </View>
   );
 };
 
-// const JoinEvent = ({data, navigation}) => {
-//   const userData = useContext(UserContext);
-//   const [attendingEvent, updateAttendance] = useState(null);
+const JoinEvent = ({data, navigation}) => {
+  const user = useSelector((state: GlobalState) => state.auth);
+  const [attendingEvent, updateAttendance] = useState(null);
 
-//   useEffect(() => {
-//     checkIfUserIsAttending();
-//   }, []);
+  useEffect(() => {
+    checkIfUserIsAttending();
+  }, []);
 
-//   const checkIfUserIsAttending = async () => {
-//     const attendingUsers = await firestore()
-//       .collection('events_attending')
-//       .doc(data.id)
-//       .get();
+  const checkIfUserIsAttending = async () => {
+    // const attendingUsers = await firestore()
+    //   .collection('events_attending')
+    //   .doc(data.id)
+    //   .get();
+    // const userIsAttendingEvent = attendingUsers._data.users.find(
+    //   x => x === userData.profile.id,
+    // );
+    // updateAttendance({
+    //   attendingUsers: attendingUsers._data.users.length,
+    //   userIsAttendingEvent: userIsAttendingEvent ? true : false,
+    // });
+  };
 
-//     const userIsAttendingEvent = attendingUsers._data.users.find(
-//       (x) => x === userData.profile.id,
-//     );
+  const joinEvent = () => {
+    navigation.navigate('ModalWarning', {
+      title: 'Warning!',
+      warning:
+        'Please make sure you read and understand the rules before participating in any events. Disobedience of rules might get your account permanently suspended!',
+      buttonValue: 'I understand',
+      buttonValue2: 'Cancel',
+    });
+    // firestore()
+    //   .collection('events_attending')
+    //   .doc(data.id)
+    //   .update({
+    //     users: firestore.FieldValue.arrayUnion(userData.profile.id),
+    //   })
+    //   .then(e => {
+    //     updateAttendance({
+    //       attendingUsers: attendingEvent.attendingUsers + 1,
+    //       userIsAttendingEvent: true,
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     console.log('UNSUCCESSFUL ', error);
+    //   });
+  };
 
-//     updateAttendance({
-//       attendingUsers: attendingUsers._data.users.length,
-//       userIsAttendingEvent: userIsAttendingEvent ? true : false,
-//     });
-//   };
+  const withdrawEvent = () => {
+    // firestore()
+    //   .collection('events_attending')
+    //   .doc(data.id)
+    //   .update({
+    //     users: firestore.FieldValue.arrayRemove(userData.profile.id),
+    //   })
+    //   .then(e => {
+    //     updateAttendance({
+    //       attendingUsers: attendingEvent.attendingUsers - 1,
+    //       userIsAttendingEvent: false,
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     console.log('UNSUCCESSFUL ', error);
+    //   });
+  };
 
-//   const joinEvent = () => {
-//     navigation.navigate('ModalWarning', {
-//       title: 'Warning!',
-//       warning:
-//         'Please make sure you read and understand the rules before participating in any events. Disobedience of rules might get your account permanently suspended!',
-//       buttonValue: 'I understand',
-//       buttonValue2: 'Cancel',
-//     });
-//     firestore()
-//       .collection('events_attending')
-//       .doc(data.id)
-//       .update({
-//         users: firestore.FieldValue.arrayUnion(userData.profile.id),
-//       })
-//       .then((e) => {
-//         updateAttendance({
-//           attendingUsers: attendingEvent.attendingUsers + 1,
-//           userIsAttendingEvent: true,
-//         });
-//       })
-//       .catch(function (error) {
-//         console.log('UNSUCCESSFUL ', error);
-//       });
-//   };
+  return (
+    <View style={style.JoinEvent}>
+      {attendingEvent && (
+        <Text style={style.OpenSeats}>
+          Liko 5 vietos
+          {/* Liko {parseInt(data.limit - attendingEvent.attendingUsers)} vietų */}
+        </Text>
+      )}
 
-//   const withdrawEvent = () => {
-//     firestore()
-//       .collection('events_attending')
-//       .doc(data.id)
-//       .update({
-//         users: firestore.FieldValue.arrayRemove(userData.profile.id),
-//       })
-//       .then((e) => {
-//         updateAttendance({
-//           attendingUsers: attendingEvent.attendingUsers - 1,
-//           userIsAttendingEvent: false,
-//         });
-//       })
-//       .catch(function (error) {
-//         console.log('UNSUCCESSFUL ', error);
-//       });
-//   };
-
-//   return (
-//     <View style={style.JoinEvent}>
-//       {attendingEvent && (
-//         <Text style={style.OpenSeats}>
-//           Liko {parseInt(data.limit - attendingEvent.attendingUsers)} vietų
-//         </Text>
-//       )}
-
-//       {attendingEvent && (
-//         <View>
-//           {attendingEvent.userIsAttendingEvent ? (
-//             <Button value="Withdraw" onPress={withdrawEvent} />
-//           ) : (
-//             attendingEvent.attendingUsers !== data.limit && (
-//               <Button value="Join event" onPress={joinEvent} />
-//             )
-//           )}
-//         </View>
-//       )}
-//     </View>
-//   );
-// };
+      {attendingEvent && (
+        <View>
+          {attendingEvent.userIsAttendingEvent ? (
+            <Button value="Withdraw" onPress={withdrawEvent} />
+          ) : (
+            attendingEvent.attendingUsers !== data.limit && (
+              <Button value="Join event" onPress={joinEvent} />
+            )
+          )}
+        </View>
+      )}
+    </View>
+  );
+};

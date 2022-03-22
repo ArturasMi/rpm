@@ -6,19 +6,19 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-import ScreenTitle from '../../components/ScreenTitle';
-import FadeIn from '../../components/Animate/FadeIn';
+import {ScreenTitle, Switch} from '../../../../components';
+import FadeIn from '../../../../components/Animate/FadeIn';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import styles from './styles';
-import config from '../../config';
+import {styles} from './styles';
 
-import ChevronRight from '../../assets/icons/ChevronRight';
-import Lock from '../../assets/icons/Lock';
-import Talk from '../../assets/icons/Talk';
-import Shield from '../../assets/icons/Shield';
-import Google from '../../assets/icons/Google';
-import Facebook from '../../assets/icons/Facebook';
+import ChevronRight from '../../../../assets/icons/ChevronRight';
+import Lock from '../../../../assets/icons/Lock';
+import Talk from '../../../../assets/icons/Talk';
+import Shield from '../../../../assets/icons/Shield';
+import Google from '../../../../assets/icons/Google';
+import Facebook from '../../../../assets/icons/Facebook';
+import {Colors} from '../../../../configs';
 
 const style = EStyleSheet.create(styles);
 
@@ -34,16 +34,13 @@ const Settings = ({navigation}) => {
         barStyle="light-content"
       />
       <View style={style.TitleContainer}>
-        <ScreenTitle
-          title="Settings"
-          onBack={() => navigation.navigate('MyProfile')}
-        />
+        <ScreenTitle title="Settings" />
       </View>
       <TouchableOpacity onPress={() => navigation.navigate('ChangePassword')}>
         <FadeIn delay={100}>
           <View style={style.SettingsBlock}>
             <View style={style.SettingsIcon}>
-              <Lock size={15} color={config.colorMain} />
+              <Lock size={15} color={Colors.colorMain} />
             </View>
             <Text style={style.SettingsName}>Change Password</Text>
             <View style={style.ChevronHolder}>
@@ -56,7 +53,7 @@ const Settings = ({navigation}) => {
         <FadeIn delay={200}>
           <View style={{...style.SettingsBlock, opacity: 0.5}}>
             <View style={style.SettingsIcon}>
-              <Talk size={15} color={config.colorMain} />
+              <Talk size={15} color={Colors.colorMain} />
             </View>
             <Text style={style.Soon}>Soon!</Text>
             <Text style={style.SettingsName}>Feedback</Text>
@@ -70,7 +67,7 @@ const Settings = ({navigation}) => {
         <FadeIn delay={300}>
           <View style={style.SettingsBlock}>
             <View style={style.SettingsIcon}>
-              <Shield size={15} color={config.colorMain} />
+              <Shield size={15} color={Colors.colorMain} />
             </View>
             <Text style={style.SettingsName}>Privacy and Security</Text>
             <View style={style.ChevronHolder}>
@@ -88,7 +85,7 @@ const Settings = ({navigation}) => {
           <Text style={style.Soon}>Soon!</Text>
           <Text style={style.SettingsName}>Google</Text>
           <View style={style.ChevronHolder}>
-            {/* <Switch onChange={updateGg} size={25} gaps={5} /> */}
+            <Switch onChange={updateGg} size={25} gaps={5} value={undefined} />
           </View>
         </View>
       </FadeIn>
@@ -101,7 +98,7 @@ const Settings = ({navigation}) => {
           <Text style={style.Soon}>Soon!</Text>
           <Text style={style.SettingsName}>Facebook</Text>
           <View style={style.ChevronHolder}>
-            {/* <Switch onChange={updateFb} size={25} gaps={5} /> */}
+            <Switch onChange={updateFb} size={25} gaps={5} value={undefined} />
           </View>
         </View>
       </FadeIn>

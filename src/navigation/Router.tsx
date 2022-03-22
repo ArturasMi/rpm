@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {DarkTheme, NavigationContainer} from '@react-navigation/native';
 import {AuthStackNavigator} from '../modules/auth/navigators/AuthStackNavigator';
 import {useSelector} from 'react-redux';
 import {GlobalState} from '../redux/reducers';
@@ -10,11 +10,10 @@ export const MainRouter = () => {
   const [isLoggedIn, setLoggedInStatus] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log('userSelector - ', userSelector);
     setLoggedInStatus(!!userSelector);
   }, [userSelector]);
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={DarkTheme}>
       {isLoggedIn ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
