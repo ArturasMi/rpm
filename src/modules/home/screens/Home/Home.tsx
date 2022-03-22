@@ -11,6 +11,7 @@ import {GalleryActions} from '../../../../redux/reducers/gallery/actions';
 import {AppDispatch} from '../../../../redux/store';
 import {styles} from './styles';
 import {Screens} from '../../../../navigation/Screens';
+import {MapActions} from '../../../../redux/reducers/map/actions';
 
 const style = EStyleSheet.create(styles);
 
@@ -21,6 +22,7 @@ export const Home = ({navigation}) => {
   useEffect(() => {
     dispatch(GalleryActions.getGallery());
     dispatch(EventsActions.getEvents(10));
+    dispatch(MapActions.getMapList());
   }, []);
 
   React.useEffect(() => {

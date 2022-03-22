@@ -1,5 +1,4 @@
-import {PermissionsAndroid} from 'react-native';
-import Geolocation, {GeoCoordinates} from 'react-native-geolocation-service';
+import Geolocation from '@react-native-community/geolocation';
 import {MapActions} from '../../../redux/reducers/map/actions';
 import {MapCoordinates} from '../../../redux/reducers/map/types';
 import {AppDispatch} from '../../../redux/store';
@@ -7,20 +6,16 @@ import {AppDispatch} from '../../../redux/store';
 export class MapViewModel {
   constructor(private dispatch: AppDispatch) {}
 
-  getCurrentLocation = async (): Promise<MapCoordinates | null> => {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    );
-
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      const coords = Geolocation.getCurrentPosition(state => [
-        state.coords.latitude,
-        state.coords.longitude,
+  setCurrentLocation = () => {
+    Geolocation.getCurrentPosition(info => {
+      console.log('SET COORDS TO REDUX ', [
+        info.coords.latitude,
+        info.coords.longitude,
       ]);
-      return coords as any;
-    }
-
-    return null;
+      this.dispatch(
+        MapActions.setCoords([info.coords.longitude, info.coords.latitude]),
+      );
+    });
   };
 
   displayUserDetails = data => {
@@ -37,9 +32,9 @@ export class MapViewModel {
   };
 
   centerCamera = async () => {
-    const currentLocation = await this.getCurrentLocation();
-    if (currentLocation)
-      this.dispatch(MapActions.setCoords([25.279043, 54.6711717]));
+    // const currentLocation = await this.getCurrentLocation();
+    // if (currentLocation)
+    //   this.dispatch(MapActions.setCoords([25.279043, 54.6711717]));
   };
 
   enablePinpinting = () => {

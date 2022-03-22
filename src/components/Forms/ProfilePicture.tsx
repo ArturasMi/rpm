@@ -34,7 +34,6 @@ export const ProfilePicture = ({value, onChange, error}) => {
         colors={[Colors.colorMain, '#006429']}
         style={style.ProfilePicture}>
         <View style={style.ProfilePicBackground}>
-          {console.log('PROFILE VALUE == ', value)}
           {value.length ? (
             <ProgressiveImage
               style={style.ProfilePictureImage}

@@ -7,20 +7,26 @@ import {GlobalState} from '../../../../redux/reducers';
 import {ProgressiveImage} from '../../../../components';
 import Navigation from '../../../../assets/icons/Navigation';
 import {Colors} from '../../../../configs';
+import {MapCoordinates} from '../../../../redux/reducers/map/types';
 
 export const MapMarkers = () => {
   const dispatch = useDispatch();
   const {displayUserDetails} = new MapViewModel(dispatch);
   const map = useSelector((state: GlobalState) => state.map);
   const [usersList, setUsersList] = useState<Array<any>>(map.list);
+  const [coords, setCoords] = useState<MapCoordinates | null>(map.coords);
 
   useEffect(() => {
     setUsersList(map.list);
   }, [map.list]);
 
+  useEffect(() => {
+    setCoords(map.coords);
+  }, [map.coords]);
+
   return (
     <>
-      <MapboxGL.MarkerView id="My_marker" coordinate={[25.279043, 54.6711717]}>
+      <MapboxGL.MarkerView id="My_marker" coordinate={coords}>
         <View
           style={{
             width: 30,

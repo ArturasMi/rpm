@@ -36,7 +36,7 @@ const ActionCreator = {
   }),
 
   setCoords: (payload: MapCoordinates) => ({
-    type: MapActionTypes.SET_ZOOM,
+    type: MapActionTypes.SET_COORDS,
     payload,
   }),
 

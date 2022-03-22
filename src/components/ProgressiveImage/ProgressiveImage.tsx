@@ -19,7 +19,6 @@ export const ProgressiveImage = props => {
     <View>
       {source && uri && (
         <Animated.View style={{opacity: fadeAnim}}>
-          {console.log('HUH?')}
           <FastImage
             style={style}
             source={{

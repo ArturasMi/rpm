@@ -5,7 +5,7 @@ export interface MapInterface {
   userDetails?: UserProfileType;
   search?: any;
   route?: any;
-  coords: [number, number];
+  coords?: [number, number];
   zoomLevel: number;
   pinpointLocation: boolean;
   error: string | null;
@@ -23,6 +23,7 @@ export enum MapActionTypes {
   MAP_SEARCH_REJECTED = 'MAP_SEARCH_REJECTED',
   NAVIGATION_ROUTE = 'NAVIGATION_ROUTE',
   SET_ZOOM = 'SET_ZOOM',
+  SET_COORDS = 'SET_COORDS',
   SET_PINPOINTING = 'SET_PINPOINTING',
 }
 

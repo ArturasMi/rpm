@@ -21,7 +21,6 @@ const Reduction = {
         };
       }
       case GalleryActionTypes.GET_GALLERY: {
-        console.log('???');
         return {
           list: action.payload.data._docs,
         };

@@ -4,7 +4,6 @@ import {MapActionTypes, MapInterface} from './types';
 const initialState: MapInterface = {
   list: [],
   zoomLevel: 15,
-  coords: [25.279043, 54.6711717],
   pinpointLocation: false,
   error: null,
 };
@@ -20,6 +19,7 @@ const Reduction = {
     switch (action.type) {
       case MapActionTypes.USER_USERS_LIST_FULFILLED: {
         return {
+          ...state,
           list: action.payload._docs,
           error: null,
         };
@@ -62,6 +62,13 @@ const Reduction = {
           zoomLevel: action.payload,
         };
       }
+      case MapActionTypes.SET_COORDS: {
+        console.log('SET COORDS????');
+        return {
+          ...state,
+          coords: action.payload,
+        };
+      }
       case MapActionTypes.SET_PINPOINTING: {
         return {
           ...state,
@@ -83,4 +90,5 @@ export const reducer = createReducer(initialState, {
   [MapActionTypes.NAVIGATION_ROUTE]: Reduction.map,
   [MapActionTypes.SET_PINPOINTING]: Reduction.map,
   [MapActionTypes.SET_ZOOM]: Reduction.map,
+  [MapActionTypes.SET_COORDS]: Reduction.map,
 });
