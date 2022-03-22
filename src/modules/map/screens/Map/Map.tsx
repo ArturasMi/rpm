@@ -33,7 +33,6 @@ export const Map = ({navigation}) => {
   const mapSelector = useSelector((state: GlobalState) => state.map);
   const [coords, setCoords] = useState<MapCoordinates>(mapSelector.coords);
   useEffect(() => {
-    console.log('MAP SELECTOR UPDATE ', mapSelector);
     if (mapSelector.coords) {
       setCoords(mapSelector.coords);
     }

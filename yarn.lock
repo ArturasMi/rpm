@@ -1647,6 +1647,11 @@
   "resolved" "https://registry.npmjs.org/@react-native-firebase/firestore/-/firestore-14.5.1.tgz"
   "version" "14.5.1"
 
+"@react-native-firebase/messaging@^14.5.1":
+  "integrity" "sha512-qcsPlenHWJQBCExAYyeGZfkoDvFjpXdZj+7R4JlZ8zgy42R2IGgXOcu1UbdjfkTPYJZHrJZuZHLIn8aKq54R7A=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/messaging/-/messaging-14.5.1.tgz"
+  "version" "14.5.1"
+
 "@react-native-firebase/storage@^14.5.1":
   "integrity" "sha512-QGLJ5IanXhFfhefwH61rvz7cNRFkFs7X90djBqfhKwIeh7ASN9YZLBaME0k/nyLkWnwN5HCfqi4kdVzVhlNkMQ=="
   "resolved" "https://registry.npmjs.org/@react-native-firebase/storage/-/storage-14.5.1.tgz"
@@ -7129,6 +7134,11 @@
   "resolved" "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz"
   "version" "2.5.6"
 
+"react-native-notifications@^4.2.4":
+  "integrity" "sha512-ffToxERa2bRUsXShCO19yXY6c6l4Esq7MqRKAb4mPSn+T428X7Je7WYvWOIOVw/BMGJ3R0lPrZk52vDpoYqanw=="
+  "resolved" "https://registry.npmjs.org/react-native-notifications/-/react-native-notifications-4.2.4.tgz"
+  "version" "4.2.4"
+
 "react-native-reanimated@^2.4.1":
   "integrity" "sha512-kvf7ylGlwa5hxMQ+wpPFjQrI2c6eexf53/xRo+dvXBNefGmSYaYR5sFtD0XMMzIPQlkCB9tJ0Pu9+2WCQUY7Cg=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.4.1.tgz"
@@ -7167,13 +7177,6 @@
   dependencies:
     "css-select" "^4.2.1"
     "css-tree" "^1.0.0-alpha.39"
-
-"react-native-swiper@^1.6.0":
-  "integrity" "sha512-OnkTTZi+9uZUgy0uz1I9oYDhCU3z36lZn+LFsk9FXPRelxb/KeABzvPs3r3SrHWy1aA67KGtSFj0xNK2QD0NJQ=="
-  "resolved" "https://registry.npmjs.org/react-native-swiper/-/react-native-swiper-1.6.0.tgz"
-  "version" "1.6.0"
-  dependencies:
-    "prop-types" "^15.5.10"
 
 "react-native@*", "react-native@^0.67.4", "react-native@>=0.40.0", "react-native@>=0.50.0", "react-native@>=0.55", "react-native@>=0.57", "react-native@>=0.59.9", "react-native@>=0.60.0":
   "integrity" "sha512-NA9d9lNJu9TViEJu2uZxWXUP+QNUilGGA5tdMbVFedNroOH1lnQ3n/FAVoGK1gqGarCgNTtheBxUpEa979Cu8w=="

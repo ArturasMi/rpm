@@ -8,11 +8,13 @@ import {ProgressiveImage} from '../../../../components';
 import Navigation from '../../../../assets/icons/Navigation';
 import {Colors} from '../../../../configs';
 import {MapCoordinates} from '../../../../redux/reducers/map/types';
+import firestore from '@react-native-firebase/firestore';
 
 export const MapMarkers = () => {
   const dispatch = useDispatch();
   const {displayUserDetails} = new MapViewModel(dispatch);
   const map = useSelector((state: GlobalState) => state.map);
+  const user = useSelector((state: GlobalState) => state.auth);
   const [usersList, setUsersList] = useState<Array<any>>(map.list);
   const [coords, setCoords] = useState<MapCoordinates | null>(map.coords);
 
@@ -23,6 +25,18 @@ export const MapMarkers = () => {
   useEffect(() => {
     setCoords(map.coords);
   }, [map.coords]);
+
+  useEffect(() => {
+    firestore()
+      .collection('map')
+      .doc(user.uid)
+      .set({
+        latitude: coords[0],
+        longitude: coords[1],
+        ...user.profile,
+        lastupdate: Date.now(),
+      });
+  }, []);
 
   return (
     <>

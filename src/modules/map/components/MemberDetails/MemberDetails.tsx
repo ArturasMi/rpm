@@ -12,13 +12,46 @@ import {Colors} from '../../../../configs';
 import {MapViewModel} from '../../viewmodels/MapViewModel';
 import {AppDispatch} from '../../../../redux/store';
 import {GlobalState} from '../../../../redux/reducers';
+import firestore from '@react-native-firebase/firestore';
 
 const style = EStyleSheet.create(styles);
 
 export const MemberDetails = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: GlobalState) => state.auth);
   const details = useSelector((state: GlobalState) => state.map.userDetails);
   const mapVM = new MapViewModel(dispatch);
+
+  const sendMeetupRequest = () => {
+    firestore()
+      .collection('notifications')
+      .doc()
+      .set({
+        uid: user.uid,
+        title:
+          user.profile.name +
+          ' ' +
+          user.profile.lastname +
+          ' wants to meet you!',
+        body: 'Choose to accept or decline invitation',
+        sender: user.uid,
+        location: [123, 123],
+        type: 'meet',
+        sent: Date.now(),
+      })
+      .then(e => {
+        console.log('METUP REQUEST SENT');
+      })
+      .catch(err => {
+        console.log('ERROR --- ', err);
+        // navigation.navigate('ModalWarning', {
+        //   title: 'Warning!',
+        //   warning: 'Something went shitways',
+        //   buttonValue: 'I understand',
+        // });
+      })
+      .finally(() => {});
+  };
 
   if (!details) return null;
   return (
@@ -73,6 +106,12 @@ export const MemberDetails = () => {
             mapVM.displayUserDetails(undefined);
             mapVM.enablePinpinting();
           }}
+          value="MoreBtn"
+          container={style.MoreBtn}>
+          <More size={26} color={Colors.colorBlack} />
+        </Button>
+        <Button
+          onPress={() => sendMeetupRequest()}
           value="MoreBtn"
           container={style.MoreBtn}>
           <More size={26} color={Colors.colorBlack} />
