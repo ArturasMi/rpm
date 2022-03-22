@@ -95,6 +95,8 @@ export const styles = {
     borderRadius: 20,
     borderWidth: 1,
     borderColor: Colors.colorMain,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   RemoveImagePress: {
     position: 'absolute',

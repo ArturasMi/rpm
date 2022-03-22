@@ -8,17 +8,27 @@ import {Colors} from '../../../../configs';
 import {GlobalState} from '../../../../redux/reducers';
 import {EventsActions} from '../../../../redux/reducers/events/actions';
 import {GalleryActions} from '../../../../redux/reducers/gallery/actions';
+import {AuthActions} from '../../../../redux/reducers/auth/actions';
 import {AppDispatch} from '../../../../redux/store';
 import {styles} from './styles';
+import {Screens} from '../../../../navigation/Screens';
 
 const style = EStyleSheet.create(styles);
 
 export const Home = ({navigation}) => {
   const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: GlobalState) => state.auth);
 
   useEffect(() => {
     dispatch(GalleryActions.getGallery());
   }, []);
+
+  React.useEffect(() => {
+    if (user.profile?.completed == false) {
+      navigation.navigate(Screens.COMPLETE_REGISTRATION);
+    }
+  }, [user.profile]);
+
   return (
     <View style={style.Home}>
       <StatusBar

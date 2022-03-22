@@ -1,2 +1,2 @@
-export * from "./navigators";
-export * from "./screens";
+export * from './viewmodels';
+export * from './screens';

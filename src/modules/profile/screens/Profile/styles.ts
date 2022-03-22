@@ -1,8 +1,11 @@
+import {Dimensions} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {Colors} from '../../../../configs';
 
-export default styles = {
+export const styles = {
   Profile: {
     flex: 1,
+    backgroundColor: Colors.colorBlack,
   },
   Name: {
     fontSize: 20,
@@ -10,11 +13,14 @@ export default styles = {
     color: '#fff',
     fontFamily: 'Poppins-Medium',
   },
+  ScrollView: {
+    flex: 1,
+  },
   ProfileHeadContainer: {
-    marginTop: 30 + getStatusBarHeight(),
     flexDirection: 'row',
     paddingLeft: 20,
     paddingRight: 20,
+    marginTop: 30 + getStatusBarHeight(),
   },
   Image: {
     width: 100,

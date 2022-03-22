@@ -10,6 +10,8 @@ import {Colors} from '../configs';
 import {EventsStackNavigator} from '../modules/events/navigators/EventsStackNavigator';
 import {Map} from '../modules/map';
 import {GalleryStackNavigator} from '../modules/gallery/navigators/GalleryStackNavigator';
+import {ProfileStackNavigator} from '../modules/profile/navigators/ProfileStackNavigator';
+import {HomeStackNavigator} from '../modules/home/navigators/HomeStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +33,7 @@ export const MainStackNavigator = () => {
       }}>
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeStackNavigator}
         options={{
           tabBarLabel: () => <></>,
           tabBarIcon: ({focused}) => (
@@ -78,9 +80,9 @@ export const MainStackNavigator = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="Profile"
-        component={ProfileNavigator}
+        component={ProfileStackNavigator}
         options={{
           tabBarLabel: () => <></>,
           tabBarIcon: ({focused}) => (
@@ -90,7 +92,7 @@ export const MainStackNavigator = () => {
             />
           ),
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };

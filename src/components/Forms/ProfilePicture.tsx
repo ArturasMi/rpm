@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
+import {View, Text, TouchableHighlight, TouchableOpacity} from 'react-native';
 import {ProgressiveImage} from '../../components/ProgressiveImage';
 import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -34,7 +34,8 @@ export const ProfilePicture = ({value, onChange, error}) => {
         colors={[Colors.colorMain, '#006429']}
         style={style.ProfilePicture}>
         <View style={style.ProfilePicBackground}>
-          {value ? (
+          {console.log('PROFILE VALUE == ', value)}
+          {value.length ? (
             <ProgressiveImage
               style={style.ProfilePictureImage}
               source={{
@@ -46,16 +47,15 @@ export const ProfilePicture = ({value, onChange, error}) => {
               Upload Image
             </Text>
           )}
-          {value && (
-            <TouchableHighlight
-              underlayColor="rgba(0,0,0,0)"
+          {value.length ? (
+            <TouchableOpacity
               onPress={selectImage}
               style={style.RemoveImagePress}>
               <View style={style.RemoveImage}>
                 <Edit size={20} color={Colors.colorMain} />
               </View>
-            </TouchableHighlight>
-          )}
+            </TouchableOpacity>
+          ) : null}
         </View>
       </LinearGradient>
       {error && <Text style={style.ErrorMessage}>{error}</Text>}

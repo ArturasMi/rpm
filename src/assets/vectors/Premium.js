@@ -2,7 +2,7 @@ import Svg, {Path, Rect, Circle, Ellipse} from 'react-native-svg';
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 
-const ImageContain = ({size, color}) => {
+const ImageContain = () => {
   return (
     <View
       style={[
