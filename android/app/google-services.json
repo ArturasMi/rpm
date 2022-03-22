@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "923395354819",
+    "firebase_url": "https://rpmcrew-aa614.firebaseio.com",
+    "project_id": "rpmcrew-aa614",
+    "storage_bucket": "rpmcrew-aa614.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923395354819:android:c912b3fdb38eef59e1f276",
+        "android_client_info": {
+          "package_name": "com.rpm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923395354819-3ucb0bo0p3g7vvb3er6tmksdc834cmbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYqMNlDvZv8_X5cwJmWmtqCDLqmoXjRlo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923395354819-3ucb0bo0p3g7vvb3er6tmksdc834cmbc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

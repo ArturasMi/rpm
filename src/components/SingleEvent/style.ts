@@ -1,0 +1,36 @@
+export const styles = {
+  SingleEvent: {
+    marginTop: 20,
+    position: 'relative',
+    backgroundColor: '#181820',
+    borderRadius: 10,
+  },
+  EventImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 10,
+    opacity: 0.8,
+  },
+  EventName: {
+    position: 'absolute',
+    bottom: 10,
+    left: 20,
+    right: 20,
+    fontSize: 20,
+    color: '#fff',
+    fontFamily: 'Poppins-Regular',
+  },
+  EventDate: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 25,
+    right: 20,
+  },
+  DateNumber: {color: '#fff', fontWeight: 'bold'},
+  DateMonth: {color: '#fff', fontSize: 10},
+};

@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">#43434e</item>
+        <item name="android:windowBackground">#1f1f28</item>
+<!--        <item name="android:windowTitleBackgroundStyle">#1f1f28</item>-->
+<!--        <item name="android:fontFamily">Poppins-Regular</item>-->
+    </style>
+
+</resources>
