@@ -50,28 +50,37 @@ export const MapMarkers = () => {
         </View>
       </MapboxGL.MarkerView>
 
-      {usersList?.map((marker, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() => {
-            displayUserDetails(marker._data);
-          }}>
-          <MapboxGL.MarkerView
-            id="My_marker"
-            coordinate={[marker._data.longitude, marker._data.latitude]}>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-              }}>
-              <ProgressiveImage
-                source={{uri: marker._data.image}}
-                style={{width: 30, height: 30, borderRadius: 30}}
-              />
-            </View>
-          </MapboxGL.MarkerView>
-        </TouchableOpacity>
-      ))}
+      {usersList?.map((marker, index) => {
+        if (marker.id == user.uid) return null;
+        return (
+          <TouchableOpacity
+            key={index}
+            onPress={() => {
+              displayUserDetails(marker._data);
+            }}>
+            <MapboxGL.MarkerView
+              id="My_marker"
+              coordinate={[marker._data.latitude, marker._data.longitude]}>
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor: Colors.Primary100,
+                  borderRadius: 30,
+                }}>
+                <ProgressiveImage
+                  source={{uri: marker._data.image}}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 30,
+                  }}
+                />
+              </View>
+            </MapboxGL.MarkerView>
+          </TouchableOpacity>
+        );
+      })}
     </>
   );
 };

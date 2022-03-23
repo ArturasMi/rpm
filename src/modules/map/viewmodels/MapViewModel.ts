@@ -1,20 +1,23 @@
 import Geolocation from '@react-native-community/geolocation';
 import {MapActions} from '../../../redux/reducers/map/actions';
 import {MapCoordinates} from '../../../redux/reducers/map/types';
-import {AppDispatch} from '../../../redux/store';
+import {AppDispatch, store} from '../../../redux/store';
+import firestore from '@react-native-firebase/firestore';
 
 export class MapViewModel {
   constructor(private dispatch: AppDispatch) {}
 
   setCurrentLocation = () => {
+    const user = store.getState().auth;
     Geolocation.getCurrentPosition(info => {
-      console.log('SET COORDS TO REDUX ', [
-        info.coords.latitude,
-        info.coords.longitude,
-      ]);
       this.dispatch(
         MapActions.setCoords([info.coords.longitude, info.coords.latitude]),
       );
+
+      firestore().collection('map').doc(user.uid).update({
+        longitute: info.coords.longitude,
+        latitute: info.coords.latitude,
+      });
     });
   };
 

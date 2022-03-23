@@ -30,8 +30,10 @@ const style = EStyleSheet.create(styles);
 export const Map = ({navigation}) => {
   const dispatch = useDispatch<AppDispatch>();
   const {setCurrentLocation} = new MapViewModel(dispatch);
+  const user = useSelector((state: GlobalState) => state.auth);
   const mapSelector = useSelector((state: GlobalState) => state.map);
   const [coords, setCoords] = useState<MapCoordinates>(mapSelector.coords);
+
   useEffect(() => {
     if (mapSelector.coords) {
       setCoords(mapSelector.coords);
