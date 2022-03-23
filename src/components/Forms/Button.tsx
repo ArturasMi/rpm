@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {styles} from './styles';
 
@@ -20,10 +20,16 @@ export const Button = ({
   value,
   children,
 }: ButtonType) => {
-  return (
+  return children ? (
+    <TouchableOpacity
+      onPress={onPress}
+      style={[style.ButtonContainer, container]}>
+      {children}
+    </TouchableOpacity>
+  ) : (
     <View style={[style.ButtonContainer, container]}>
       <Text onPress={onPress} style={[style.Button, button]}>
-        {children ?? value}
+        {value}
       </Text>
     </View>
   );

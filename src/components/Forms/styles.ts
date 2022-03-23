@@ -11,8 +11,16 @@ export const styles = {
     color: '#fff',
     fontFamily: 'Poppins-Regular',
   },
+  Prefix: {
+    width: 20,
+    height: 20,
+    position: 'absolute',
+    top: 13,
+    left: 10,
+  },
   TextInputContainer: {
     marginTop: 20,
+    position: 'relative',
   },
   // Button
   ButtonContainer: {
@@ -116,7 +124,7 @@ export const styles = {
   //Error Message
   ErrorMessage: {
     fontFamily: 'Poppins-Regular',
-    color: Colors.red,
+    color: Colors.Secondary100,
     marginTop: 5,
   },
 };

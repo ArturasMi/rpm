@@ -1,7 +1,5 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {View, Text, StatusBar, ScrollView} from 'react-native';
-import auth from '@react-native-firebase/auth';
-import LinearGradient from 'react-native-linear-gradient';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {styles} from './styles';
 import ChevronRight from '../../../../assets/icons/ChevronRight';
@@ -17,13 +15,14 @@ import LogoutIcon from '../../../../assets/icons/Home';
 import Promotion from '../../../../assets/vectors/Premium';
 import {Screens} from '../../../../navigation/Screens';
 import {AppDispatch} from '../../../../redux/store';
-import {AuthActions} from '../../../../redux/reducers/auth/actions';
+import {AuthViewModel} from '../../../auth';
 
 const style = EStyleSheet.create(styles);
 
 export const Profile = ({navigation}) => {
   const dispatch = useDispatch<AppDispatch>();
   const profile = useSelector((state: GlobalState) => state.auth.profile);
+  const {logout} = new AuthViewModel(dispatch);
   const ProfileMenuItems = [
     {
       name: 'Edit Profile',
@@ -58,7 +57,7 @@ export const Profile = ({navigation}) => {
     {
       name: 'Logout',
       icon: LogoutIcon,
-      onPress: () => dispatch(AuthActions.logout()),
+      onPress: logout,
       background: '#ff3a3a',
     },
   ];

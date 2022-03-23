@@ -31,6 +31,9 @@ const Reduction = {
       case AuthActionTypes.LOGOUT_FULFILLED: {
         return initialState;
       }
+      case AuthActionTypes.LOGIN_RESTORE: {
+        return action.payload;
+      }
       default:
         return state;
     }
@@ -64,6 +67,14 @@ const Reduction = {
           error: action.payload.userInfo.message,
         };
       }
+      case AuthActionTypes.UPDATE_TOKKEN_FULFILLED: {
+        console.log('TOKEN UPDATE ', action.payload);
+        return state;
+      }
+      case AuthActionTypes.UPDATE_TOKKEN_REJECTED: {
+        console.log('TOKEN UPDATE REJECTED', action.payload);
+        return state;
+      }
       default:
         return {};
     }
@@ -74,5 +85,7 @@ export const reducer = createReducer(initialState, {
   [AuthActionTypes.LOGIN_USER_FULFILLED]: Reduction.user,
   [AuthActionTypes.LOGIN_USER]: Reduction.user,
   [AuthActionTypes.LOGIN_USER_REJECTED]: Reduction.user,
+  [AuthActionTypes.LOGIN_RESTORE]: Reduction.user,
   [AuthActionTypes.USER_PROFILE_FULFILLED]: Reduction.profile,
+  [AuthActionTypes.UPDATE_TOKKEN_FULFILLED]: Reduction.profile,
 });

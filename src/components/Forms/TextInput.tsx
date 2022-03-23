@@ -36,7 +36,7 @@ export const TextInput = ({
       {prefix && <View style={style.Prefix}>{prefix}</View>}
       <Input
         placeholderTextColor="rgba(255,255,255,0.5)"
-        style={prefix ? style.TextInputWithPrefix : style.TextInput}
+        style={[style.TextInput, prefix && {paddingLeft: 40}]}
         value={value.toString()}
         placeholder={placeholder}
         onChange={onInputChange}

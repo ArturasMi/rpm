@@ -3,64 +3,19 @@ import {View, Text, StatusBar, ScrollView, Dimensions} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
-import messaging from '@react-native-firebase/messaging';
 import {ProgressiveImage} from '../../../../components';
 import {Colors} from '../../../../configs';
 import {GlobalState} from '../../../../redux/reducers';
 import {EventsActions} from '../../../../redux/reducers/events/actions';
-import {GalleryActions} from '../../../../redux/reducers/gallery/actions';
 import {AppDispatch} from '../../../../redux/store';
 import {styles} from './styles';
 import {Screens} from '../../../../navigation/Screens';
-import {MapActions} from '../../../../redux/reducers/map/actions';
-import {Notifications} from 'react-native-notifications';
 
 const style = EStyleSheet.create(styles);
 
 export const Home = ({navigation}) => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: GlobalState) => state.auth);
-
-  useEffect(() => {
-    dispatch(GalleryActions.getGallery());
-    dispatch(EventsActions.getEvents(10));
-    dispatch(MapActions.getMapList());
-  }, []);
-
-  const requestNotificationsPermission = async () => {
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-    if (enabled) {
-      console.log('Authorization status:', authStatus);
-    }
-  };
-
-  useEffect(() => {
-    requestNotificationsPermission();
-    Notifications.registerRemoteNotifications();
-
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log(
-        'A new FCM message arrived!',
-        JSON.parse(remoteMessage.data.string),
-      );
-      Notifications.postLocalNotification({
-        body: remoteMessage.notification.body,
-        title: remoteMessage.notification.title,
-        sound: '',
-        badge: 1,
-        silent: false,
-        category: 'SOME_CATEGORY',
-        userInfo: {},
-        fireDate: new Date(),
-      });
-    });
-
-    return unsubscribe;
-  }, []);
 
   React.useEffect(() => {
     if (user.profile?.completed == false) {

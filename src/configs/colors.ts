@@ -6,6 +6,8 @@ export const Colors = {
 
   Primary100: '#00ee99',
 
+  Secondary100: '#f03a3a',
+
   Neutral100: '#1c1d21',
   Neutral200: '#272a36',
 

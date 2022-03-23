@@ -1,20 +1,33 @@
 import React, {useEffect, useState} from 'react';
 import {DarkTheme, NavigationContainer} from '@react-navigation/native';
-import {AuthStackNavigator} from '../modules/auth/navigators/AuthStackNavigator';
 import {useSelector} from 'react-redux';
 import {GlobalState} from '../redux/reducers';
+import {NavigationType} from '../viewmodels/MainViewModel';
+import {AuthStackNavigator} from '../modules/auth';
 import {MainStackNavigator} from './MainStackNavigator';
 
 export const MainRouter = () => {
-  const userSelector = useSelector((state: GlobalState) => state.auth);
-  const [isLoggedIn, setLoggedInStatus] = useState<boolean>(false);
+  const stateSelector = useSelector((state: GlobalState) => state.site);
+  const [state, setState] = useState<NavigationType>(NavigationType.AUTH_STACK);
 
   useEffect(() => {
-    setLoggedInStatus(!!userSelector);
-  }, [userSelector]);
+    setState(stateSelector.navigator);
+  }, [stateSelector.navigator]);
+
+  const getCurrentNavigation = (state: NavigationType): any => {
+    switch (state) {
+      case NavigationType.AUTH_STACK:
+        return <AuthStackNavigator />;
+      case NavigationType.MAIN_STACK:
+        return <MainStackNavigator />;
+      default:
+        return null; // Should be replaced with ErrorStack
+    }
+  };
+
   return (
     <NavigationContainer theme={DarkTheme}>
-      {isLoggedIn ? <MainStackNavigator /> : <AuthStackNavigator />}
+      {getCurrentNavigation(state)}
     </NavigationContainer>
   );
 };

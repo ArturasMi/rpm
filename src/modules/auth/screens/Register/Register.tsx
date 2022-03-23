@@ -1,29 +1,18 @@
 import React, {useState} from 'react';
-import {Text, View, StatusBar, ScrollView, ToastAndroid} from 'react-native';
-import * as yup from 'yup';
-// import firestore from '@react-native-firebase/firestore';
+import {Text, View, StatusBar, ScrollView} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {styles} from './styles';
 import {Button, Checkbox, ScreenTitle, TextInput} from '../../../../components';
-
-// import {Button, TextInput, Checkbox} from '../../components/Forms';
-// import ScreenTitle from '../../components/ScreenTitle';
+import {AuthViewModel} from '../../viewmodels';
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from '../../../../redux/store';
+import {setInput} from '../../../../helpers/functions';
 
 const style = EStyleSheet.create(styles);
 
-const schema = yup.object().shape({
-  name: yup.string().min(3).max(100),
-  lastname: yup.string().min(3).max(100),
-  email: yup.string().email().min(3).max(100),
-  city: yup.string().min(3).max(100),
-  wdyhau: yup.string(),
-  why: yup.string().min(3).max(500),
-  rules: yup.boolean().oneOf([true], 'rules You must agree with rules'),
-  privacy: yup.boolean().oneOf([true], 'privacy You must agree with privacy'),
-});
-
 export const Register = ({navigation}) => {
-  const [form, updateForm] = useState({
+  const dispatch = useDispatch<AppDispatch>();
+  const [form, setForm] = useState({
     name: '',
     lastname: '',
     email: '',
@@ -33,64 +22,8 @@ export const Register = ({navigation}) => {
   });
   const [rules, updateRules] = useState(false);
   const [privacy, updatePrivacy] = useState(false);
-  const [errors, updateErrors] = useState<any>({});
-  const [globalError, updateGlobalError] = useState(null);
-
-  const updateInput = (value, input) => updateForm({...form, [input]: value});
-
-  const submitForm = () => {
-    // let errors = {};
-    // schema
-    //   .validate(
-    //     {
-    //       ...form,
-    //       privacy,
-    //       rules,
-    //     },
-    //     {
-    //       abortEarly: false,
-    //       strict: false,
-    //     },
-    //   )
-    //   .then(() =>
-    //     firestore()
-    //       .collection('registration')
-    //       .add(form)
-    //       .then(() => {
-    //         ToastAndroid.show(
-    //           'Registration form successfuly submitted!',
-    //           ToastAndroid.SHORT,
-    //         );
-    //         navigation.navigate('Login');
-    //         updateForm({
-    //           name: '',
-    //           lastname: '',
-    //           email: '',
-    //           city: '',
-    //           wdyhau: '',
-    //           why: '',
-    //         });
-    //         updateErrors({});
-    //         updateUserProfile(true);
-    //       })
-    //       .catch(() => {
-    //         updateGlobalError('Uh oh something went really wrong...');
-    //       }),
-    //   )
-    //   .catch(err => {
-    //     if (err.errors?.length) {
-    //       for (let index = 0; index < Object.keys(err.errors).length; index++) {
-    //         const keyName = err.errors[index].split(' ')[0];
-    //         errors[keyName] = err.errors[index].substr(
-    //           err.errors[index].indexOf(' ') + 1,
-    //         );
-    //       }
-    //       updateErrors(errors);
-    //     }
-    //   });
-  };
-
-  console.log('ERRORS ', errors);
+  const [errors, setErrors] = useState<any>({});
+  const {submitRegisterForm} = new AuthViewModel(dispatch);
 
   return (
     <View style={style.Register}>
@@ -110,46 +43,46 @@ export const Register = ({navigation}) => {
         <View style={style.Form}>
           <TextInput
             value={form.name}
-            onChange={e => updateInput(e, 'name')}
+            onChange={setInput('name', form, setForm, errors, setErrors)}
             placeholder={'Name'}
             error={errors.name}
           />
           <TextInput
             value={form.lastname}
-            onChange={e => updateInput(e, 'lastname')}
+            onChange={setInput('lastname', form, setForm, errors, setErrors)}
             placeholder={'Lastname'}
             error={errors.lastname}
           />
           <TextInput
             value={form.email}
-            onChange={e => updateInput(e, 'email')}
+            onChange={setInput('email', form, setForm, errors, setErrors)}
             placeholder={'Email address'}
             error={errors.email}
           />
           <TextInput
             value={form.city}
-            onChange={e => updateInput(e, 'city')}
+            onChange={setInput('city', form, setForm, errors, setErrors)}
             placeholder={'City'}
             error={errors.city}
           />
 
           <TextInput
             value={form.wdyhau}
-            onChange={e => updateInput(e, 'wdyhau')}
+            onChange={setInput('wdyhau', form, setForm, errors, setErrors)}
             placeholder={'Optional: Where did you hear about us?'}
             error={errors.wdyhau}
           />
 
           <TextInput
             value={form.why}
-            onChange={e => updateInput(e, 'why')}
+            onChange={setInput('why', form, setForm, errors, setErrors)}
             placeholder={'Why do you want to join us?'}
             options={{
               multiline: true,
               numberOfLines: 5,
               textAlignVertical: 'top',
             }}
-            error={errors.wdyhau}
+            error={errors.why}
           />
         </View>
 
@@ -210,18 +143,9 @@ export const Register = ({navigation}) => {
         <Text style={style.CenteredBottom}>Thank you!</Text>
 
         <View style={style.SubmitContainer}>
-          {globalError && (
-            <Text
-              style={{
-                fontFamily: 'Poppins-Regular',
-                color: '#982833',
-              }}>
-              {globalError}
-            </Text>
-          )}
           <Button
             value="Submit form"
-            onPress={submitForm}
+            onPress={() => submitRegisterForm(form, setErrors)}
             container={undefined}
             button={undefined}
           />

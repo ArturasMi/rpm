@@ -1,12 +1,11 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Gallery, GalleryWatch} from '../screens';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export const GalleryStackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="Gallery"
     screenOptions={{
       headerShown: false,
     }}>

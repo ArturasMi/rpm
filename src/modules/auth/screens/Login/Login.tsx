@@ -1,72 +1,41 @@
-import React, {useEffect, useState} from 'react';
-import {
-  Text,
-  View,
-  StatusBar,
-  TouchableHighlight,
-  ScrollView,
-  Keyboard,
-} from 'react-native';
-import * as yup from 'yup';
+import React, {useState} from 'react';
+import {Text, View, StatusBar, TouchableOpacity} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import {TextInput, Floating} from '../../../../components';
-import {
-  AuthFormType,
-  UserInterface,
-} from '../../../../redux/reducers/auth/types';
+import {TextInput, Button} from '../../../../components';
 import {styles} from './styles';
-import {useDispatch, useSelector} from 'react-redux';
+import Video from 'react-native-video';
+import LinearGradient from 'react-native-linear-gradient';
+import {Colors} from '../../../../configs';
+import PaperPlane from '../../../../assets/icons/PaperPlane';
+import {SlideIn} from '../../../../components/Animate/SlideIn';
+import FadeIn from '../../../../components/Animate/FadeIn';
+import Profile from '../../../../assets/icons/Shield';
+import Lock from '../../../../assets/icons/Lock';
+import {Screens} from '../../../../navigation/Screens';
+import ArrowLeft from '../../../../assets/icons/ArrowLeft';
+import {AuthFormType} from '../../../../redux/reducers/auth/types';
+import {setInput} from '../../../../helpers/functions';
+import {AuthViewModel} from '../../viewmodels/AuthViewModel';
+import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../../../redux/store';
-import {AuthActions} from '../../../../redux/reducers/auth/actions';
-import {GlobalState} from '../../../../redux/reducers';
 
 const style = EStyleSheet.create(styles);
 
-const schema = yup.object().shape({
-  email: yup.string().email().min(3).max(100),
-  pass: yup.string().min(6).max(100),
-});
-
 export const Login = ({navigation}) => {
   const dispatch = useDispatch<AppDispatch>();
-  const userSelector = useSelector((state: GlobalState) => state.auth);
-  const [form, updateForm] = useState<AuthFormType>({
+  const [formVisibility, updateVisibility] = useState<boolean>(false);
+  const [form, setForm] = useState<AuthFormType>({
     email: '',
     password: '',
   });
-  const [user, setUser] = useState<UserInterface>();
-  const [errors, updateErrors] = useState<any>({});
+  const [errors, setErrors] = useState<any>({});
+  const {submitLoginForm} = new AuthViewModel(dispatch);
 
-  const updateInput = (value, input) => updateForm({...form, [input]: value});
-
-  useEffect(() => {
-    setUser(userSelector);
-  }, [userSelector]);
-
-  const login = () => {
-    updateErrors({});
-
-    let errors = {};
-    schema
-      .validate(form, {
-        abortEarly: false,
-        strict: false,
-      })
-      .then(() => {
-        Keyboard.dismiss();
-        dispatch(AuthActions.login(form));
-      })
-      .catch(err => {
-        if (err.errors?.length) {
-          for (let index = 0; index < Object.keys(err.errors).length; index++) {
-            const keyName = err.errors[index].split(' ')[0];
-            errors[keyName] = err.errors[index].substr(
-              err.errors[index].indexOf(' ') + 1,
-            );
-          }
-          updateErrors(errors);
-        }
-      });
+  const loginWithEmail = () => {
+    updateVisibility(true);
+  };
+  const goToLanding = () => {
+    updateVisibility(false);
   };
 
   return (
@@ -76,44 +45,105 @@ export const Login = ({navigation}) => {
         backgroundColor="transparent"
         barStyle="light-content"
       />
-      <ScrollView style={style.ScrollView}>
-        <View style={style.Container}>
-          <Text style={style.IntroText}>Welcome back,</Text>
-          <Text style={style.SecondaryText}>Sign in to continue</Text>
+      <Video
+        source={require('../../../../assets/video/video.mp4')}
+        style={styles.BackgroundVideo}
+        muted={true}
+        repeat={true}
+        resizeMode={'cover'}
+        rate={1.0}
+        speed={0.4}
+        ignoreSilentSwitch={'obey'}
+      />
+      <LinearGradient
+        colors={['transparent', Colors.Neutral100]}
+        style={style.Gradient}></LinearGradient>
 
-          <TextInput
-            value={form.email}
-            onChange={e => updateInput(e, 'email')}
-            placeholder={'John.doe@example.com'}
-            error={errors.email}
-          />
+      {formVisibility && (
+        <View style={style.LoginForm}>
+          <FadeIn delay={300} duration={300}>
+            <TouchableOpacity style={style.GoBack} onPress={goToLanding}>
+              <ArrowLeft size={20} color={Colors.Light100} />
+            </TouchableOpacity>
+            <View style={style.LoginFormHead}>
+              <Text style={style.LoginFormTitle}>Sign in using email</Text>
+            </View>
+          </FadeIn>
+          <SlideIn duration={400} delay={0}>
+            <View style={[style.InputContainer]}>
+              <TextInput
+                value={form.email}
+                placeholder="Email"
+                onChange={setInput('email', form, setForm, errors, setErrors)}
+                error={errors.email}
+                prefix={<Profile size={15} color={Colors.Light100} />}
+                options={{
+                  autoFocus: true,
+                }}
+              />
+            </View>
+          </SlideIn>
+          <SlideIn duration={400} delay={70}>
+            <View style={[style.InputContainer]}>
+              <TextInput
+                value={form.password}
+                placeholder="Password"
+                onChange={setInput(
+                  'password',
+                  form,
+                  setForm,
+                  errors,
+                  setErrors,
+                )}
+                error={errors.password}
+                prefix={<Lock size={15} color={Colors.Light100} />}
+                options={{
+                  secureTextEntry: true,
+                }}
+              />
+            </View>
+          </SlideIn>
 
-          <TextInput
-            value={form.password}
-            onChange={e => updateInput(e, 'password')}
-            placeholder={'Password'}
-            error={errors.password}
-          />
-          {user?.error && <Text style={style.ErrorMessage}>{user.error}</Text>}
-
-          <Text
-            style={style.ForgottenPassword}
-            onPress={() => navigation.navigate('ForgottenPassword')}>
-            Forgot Password?
-          </Text>
+          <FadeIn delay={300} duration={300}>
+            <View style={style.Register}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate(Screens.FORGOTTEN_PASS)}>
+                <Text style={style.RegisterText}>Forgot password?</Text>
+              </TouchableOpacity>
+            </View>
+          </FadeIn>
         </View>
-      </ScrollView>
-      <Floating>
-        <TouchableHighlight underlayColor="rgba(0,0,0,0)" onPress={login}>
-          <Text style={style.LoginButton}>Log in</Text>
-        </TouchableHighlight>
+      )}
 
-        <TouchableHighlight
-          underlayColor="rgba(0,0,0,0)"
-          onPress={() => navigation.navigate('Register')}>
-          <Text style={style.RegisterButton}>Become a club member</Text>
-        </TouchableHighlight>
-      </Floating>
+      <View style={style.LoginMethod}>
+        {formVisibility ? (
+          <Button
+            value=""
+            onPress={() => submitLoginForm(form, setErrors)}
+            container={[style.LoginBtn, style.LoginBtnBg]}>
+            <View style={[style.LoginBtnTextWrap, {height: 50}]}>
+              <Text style={style.LoginBtnText}>Sign in</Text>
+            </View>
+          </Button>
+        ) : (
+          <Button value="" onPress={loginWithEmail} container={style.LoginBtn}>
+            <View style={style.IconContainer}>
+              <PaperPlane size={16} color={'white'} />
+            </View>
+            <View style={style.LoginBtnTextWrap}>
+              <Text style={style.LoginBtnText}>Sign in with Email</Text>
+            </View>
+          </Button>
+        )}
+        {!formVisibility && (
+          <View style={style.Register}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(Screens.REGISTER)}>
+              <Text style={style.RegisterText}>Not a member yet? Register</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
