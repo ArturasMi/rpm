@@ -5,7 +5,7 @@ import {Colors} from '../../../../configs';
 export const styles = {
   Profile: {
     flex: 1,
-    backgroundColor: Colors.colorBlack,
+    backgroundColor: Colors.Neutral300,
   },
   Name: {
     fontSize: 20,

@@ -3,7 +3,7 @@ import {Colors} from '../../../../configs';
 export const styles = {
   Settings: {
     paddingHorizontal: 20,
-    backgroundColor: Colors.colorBlack,
+    backgroundColor: Colors.Neutral300,
   },
   TitleContainer: {
     marginBottom: 15,
@@ -42,7 +42,7 @@ export const styles = {
     top: 0,
     right: 0,
     color: '#333',
-    backgroundColor: Colors.colorMain,
+    backgroundColor: Colors.Primary200,
     fontFamily: 'Poppins-Medium',
     fontSize: 10,
     textTransform: 'uppercase',

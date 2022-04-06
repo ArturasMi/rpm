@@ -20,9 +20,9 @@ export const ProfilePicture = ({value, onChange, error}) => {
       mediaType: 'photo',
       cropperToolbarWidgetColor: '#ffffff',
       cropperToolbarTitle: '',
-      cropperToolbarColor: Colors.colorBlack,
-      cropperStatusBarColor: Colors.colorBlack,
-      cropperActiveWidgetColor: Colors.colorMain,
+      cropperToolbarColor: Colors.Neutral300,
+      cropperStatusBarColor: Colors.Neutral300,
+      cropperActiveWidgetColor: Colors.Primary200,
     })
       .then(image => onChange(image.path))
       .catch(err => onChange(null));
@@ -31,7 +31,7 @@ export const ProfilePicture = ({value, onChange, error}) => {
   return (
     <View style={style.UploadProfilePic}>
       <LinearGradient
-        colors={[Colors.colorMain, '#006429']}
+        colors={[Colors.Primary200, '#006429']}
         style={style.ProfilePicture}>
         <View style={style.ProfilePicBackground}>
           {value.length ? (
@@ -51,7 +51,7 @@ export const ProfilePicture = ({value, onChange, error}) => {
               onPress={selectImage}
               style={style.RemoveImagePress}>
               <View style={style.RemoveImage}>
-                <Edit size={20} color={Colors.colorMain} />
+                <Edit size={20} color={Colors.Primary200} />
               </View>
             </TouchableOpacity>
           ) : null}

@@ -42,7 +42,7 @@ export const Home = ({navigation}) => {
         />
 
         <LinearGradient
-          colors={['#00000024', Colors.colorBlack]}
+          colors={['#00000024', Colors.Neutral300]}
           style={style.linearGradient}></LinearGradient>
 
         <View style={style.Tint} />

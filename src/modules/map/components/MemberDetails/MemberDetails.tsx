@@ -95,9 +95,9 @@ export const MemberDetails = () => {
 
       <View style={style.ButtonContainer}>
         <Button
-          onPress={() =>
-            mapVM.displayNavigationRoute([details.longitude, details.latitude])
-          }
+          onPress={() => {
+            mapVM.displayNavigationRoute([details.latitude, details.longitude]);
+          }}
           value={'Navigate to'}
           container={{paddingHorizontal: 60}}
         />
@@ -108,13 +108,13 @@ export const MemberDetails = () => {
           }}
           value="MoreBtn"
           container={style.MoreBtn}>
-          <More size={26} color={Colors.colorBlack} />
+          <More size={26} color={Colors.Neutral300} />
         </Button>
         <Button
           onPress={() => sendMeetupRequest()}
           value="MoreBtn"
           container={style.MoreBtn}>
-          <More size={26} color={Colors.colorBlack} />
+          <More size={26} color={Colors.Neutral300} />
         </Button>
       </View>
     </View>

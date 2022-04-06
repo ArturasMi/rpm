@@ -30,7 +30,6 @@ const App = () => {
         dispatch(AuthActions.getProfile(user.uid)),
         dispatch(GalleryActions.getGallery()),
         dispatch(EventsActions.getEvents(10)),
-        dispatch(MapActions.getMapList()),
       ])
         .then(() => {
           console.log('--- All data loaded fine');

@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import axios from 'axios';
 import {Defaults} from '../../../configs';
-import {MapActionTypes, MapCoordinates} from './types';
+import {CameraState, MapActionTypes, MapCoordinates} from './types';
 
 const ActionCreator = {
   getMapList: () => ({
@@ -30,11 +30,6 @@ const ActionCreator = {
     payload: coords,
   }),
 
-  setZoom: (payload: number) => ({
-    type: MapActionTypes.SET_ZOOM,
-    payload,
-  }),
-
   setCoords: (payload: MapCoordinates) => ({
     type: MapActionTypes.SET_COORDS,
     payload,
@@ -42,6 +37,19 @@ const ActionCreator = {
 
   setPinpointing: (payload: boolean) => ({
     type: MapActionTypes.SET_PINPOINTING,
+    payload,
+  }),
+
+  setCamera: (payload: {}) => (
+    console.log('payload? ', payload),
+    {
+      type: MapActionTypes.SET_CAMERA,
+      payload,
+    }
+  ),
+
+  setOptions: (payload: {}) => ({
+    type: MapActionTypes.SET_OPTIONS,
     payload,
   }),
 };

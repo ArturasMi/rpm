@@ -1,33 +1,64 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {GlobalState} from '../../../../redux/reducers';
-import {MapCoordinates} from '../../../../redux/reducers/map/types';
+import {
+  CameraMode,
+  CameraState,
+  MapCoordinates,
+} from '../../../../redux/reducers/map/types';
+import {MapActions} from '../../../../redux/reducers/map/actions';
+import {AppDispatch} from '../../../../redux/store';
 
 export const MapCamera = () => {
-  const mapSelector = useSelector((state: GlobalState) => state.map);
-  const [zoom, setZoom] = useState<number>(mapSelector.zoomLevel);
-  const [coords, setCoords] = useState<MapCoordinates>(mapSelector.coords);
+  const dispatch = useDispatch<AppDispatch>();
+  const cameraRef = useRef<MapboxGL.Camera>();
+  const map = useSelector((state: GlobalState) => state.map);
+  const speed = useSelector((state: GlobalState) => state.map.camera.speed);
+  const [zoom, setZoom] = useState<number>(map.camera.zoom);
+  const [coords, setCoords] = useState<MapCoordinates>(map.coords);
 
   useEffect(() => {
-    if (mapSelector.zoomLevel) setZoom(mapSelector.zoomLevel);
-  }, [mapSelector.zoomLevel]);
-
-  useEffect(() => {
-    if (mapSelector.coords) {
-      setCoords(mapSelector.coords);
+    if (map.coords) {
+      setCoords(map.coords);
     }
-  }, [mapSelector.coords]);
+  }, [map.coords]);
+
+  useEffect(() => {
+    if (map.camera.zoom) {
+      setZoom(map.camera.zoom);
+    }
+  }, [map.camera.zoom]);
+
+  useEffect(() => {
+    if (map.camera.state == CameraState.BEGIN && cameraRef.current) {
+      cameraRef.current.setCamera({
+        centerCoordinate: coords,
+        zoomLevel: map.camera.zoom,
+        animationDuration: map.camera.speed,
+      });
+      dispatch(MapActions.setCamera({state: CameraState.MOVING}));
+
+      setTimeout(() => {
+        dispatch(MapActions.setCamera({state: CameraState.IDLE}));
+        cameraRef.current.setCamera({
+          pitch: 60,
+        });
+      }, speed);
+    }
+  }, [map.camera]);
 
   return (
     <MapboxGL.Camera
+      ref={cameraRef}
       zoomLevel={zoom}
       centerCoordinate={coords}
-      pitch={60}
+      pitch={map.camera.pitch}
       animationMode={'flyTo'}
-      animationDuration={1000}
-      followUserMode={'course'}
-      followZoomLevel={14}
+      animationDuration={map.camera.speed}
+      followZoomLevel={zoom}
+      followUserMode={map.camera.mode}
+      followUserLocation={map.camera.mode == CameraMode.COURSE}
     />
   );
 };

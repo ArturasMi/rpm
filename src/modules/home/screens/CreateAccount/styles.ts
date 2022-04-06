@@ -3,7 +3,7 @@ import {Colors} from '../../../../configs';
 export const styles = {
   CreateAccount: {
     flex: 1,
-    backgroundColor: Colors.colorBlack,
+    backgroundColor: Colors.Neutral300,
   },
   FillOut: {
     fontSize: 14,

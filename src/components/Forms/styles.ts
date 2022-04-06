@@ -24,7 +24,7 @@ export const styles = {
   },
   // Button
   ButtonContainer: {
-    backgroundColor: Colors.colorMain,
+    backgroundColor: Colors.Primary200,
     borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 40,
@@ -56,7 +56,7 @@ export const styles = {
     height: 10,
     borderRadius: 2,
     borderWidth: 2,
-    borderColor: Colors.colorMain,
+    borderColor: Colors.Primary200,
     borderTopWidth: 0,
     borderRightWidth: 0,
     transform: [{rotate: '-50deg'}],
@@ -75,7 +75,7 @@ export const styles = {
     alignSelf: 'center',
   },
   ProfilePicBackground: {
-    backgroundColor: Colors.colorBlack,
+    backgroundColor: Colors.Neutral300,
     width: 148,
     height: 148,
     borderRadius: 148,
@@ -87,7 +87,7 @@ export const styles = {
     width: 128,
     height: 128,
     borderRadius: 128,
-    backgroundColor: Colors.colorBlack,
+    backgroundColor: Colors.Neutral300,
   },
   NoImage: {
     fontFamily: 'Poppins-Regular',
@@ -99,10 +99,10 @@ export const styles = {
     width: 40,
     height: 40,
     zIndex: 3,
-    backgroundColor: Colors.colorBlack,
+    backgroundColor: Colors.Neutral300,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: Colors.colorMain,
+    borderColor: Colors.Primary200,
     justifyContent: 'center',
     alignItems: 'center',
   },

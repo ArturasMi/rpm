@@ -1,10 +1,16 @@
 import {createReducer} from '../../createReducer';
-import {MapActionTypes, MapInterface} from './types';
+import {CameraMode, CameraState, MapActionTypes, MapInterface} from './types';
 
 const initialState: MapInterface = {
   list: [],
-  zoomLevel: 15,
   pinpointLocation: false,
+  camera: {
+    state: CameraState.IDLE,
+    speed: 2000,
+    mode: CameraMode.NORMAL,
+    pitch: 0,
+    zoom: 18,
+  },
   error: null,
 };
 
@@ -38,6 +44,7 @@ const Reduction = {
       }
       case MapActionTypes.MAP_SEARCH_FULFILLED: {
         return {
+          ...state,
           search: action.payload.data,
           error: null,
         };
@@ -56,23 +63,37 @@ const Reduction = {
           route: action.payload,
         };
       }
-      case MapActionTypes.SET_ZOOM: {
+      case MapActionTypes.SET_CAMERA: {
+        console.log('NEW CAMERA STATE ', {
+          ...state,
+          camera: {
+            ...action.payload,
+          },
+        });
         return {
           ...state,
-          zoomLevel: action.payload,
+          camera: {
+            ...action.payload,
+          },
         };
       }
       case MapActionTypes.SET_COORDS: {
-        console.log('SET COORDS????');
         return {
           ...state,
-          coords: action.payload,
+          coords: [...action.payload],
         };
       }
       case MapActionTypes.SET_PINPOINTING: {
         return {
           ...state,
           pinpointLocation: action.payload,
+        };
+      }
+
+      case MapActionTypes.SET_OPTIONS: {
+        return {
+          ...state,
+          ...action.payload,
         };
       }
       default:
@@ -89,6 +110,8 @@ export const reducer = createReducer(initialState, {
   [MapActionTypes.MAP_SEARCH_FULFILLED]: Reduction.map,
   [MapActionTypes.NAVIGATION_ROUTE]: Reduction.map,
   [MapActionTypes.SET_PINPOINTING]: Reduction.map,
-  [MapActionTypes.SET_ZOOM]: Reduction.map,
+  [MapActionTypes.SET_OPTIONS]: Reduction.map,
+  // Should be removed
   [MapActionTypes.SET_COORDS]: Reduction.map,
+  [MapActionTypes.SET_CAMERA]: Reduction.map,
 });

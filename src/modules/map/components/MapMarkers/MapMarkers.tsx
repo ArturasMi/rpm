@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {MapViewModel} from '../../viewmodels';
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,50 +9,30 @@ import {ProgressiveImage} from '../../../../components';
 import Navigation from '../../../../assets/icons/Navigation';
 import {Colors} from '../../../../configs';
 import {MapCoordinates} from '../../../../redux/reducers/map/types';
-import firestore from '@react-native-firebase/firestore';
 
 export const MapMarkers = () => {
   const dispatch = useDispatch();
   const {displayUserDetails} = new MapViewModel(dispatch);
-  const map = useSelector((state: GlobalState) => state.map);
+  // const map = useSelector((state: GlobalState) => state.map);
   const user = useSelector((state: GlobalState) => state.auth);
-  const [usersList, setUsersList] = useState<Array<any>>(map.list);
-  const [coords, setCoords] = useState<MapCoordinates | null>(map.coords);
-
-  useEffect(() => {
-    setUsersList(map.list);
-  }, [map.list]);
-
-  useEffect(() => {
-    setCoords(map.coords);
-  }, [map.coords]);
+  const [usersList, setUsersList] = useState<Array<any>>([]);
 
   useEffect(() => {
     firestore()
       .collection('map')
-      .doc(user.uid)
-      .set({
-        latitude: coords[0],
-        longitude: coords[1],
-        ...user.profile,
-        lastupdate: Date.now(),
-      });
+      .onSnapshot(
+        snapshot => setUsersList(snapshot.docs),
+        () => {
+          console.log('ERR');
+        },
+      );
   }, []);
 
   return (
     <>
-      <MapboxGL.MarkerView id="My_marker" coordinate={coords}>
-        <View
-          style={{
-            width: 30,
-            height: 30,
-          }}>
-          <Navigation size={30} colors={[Colors.colorMain, Colors.darkGreen]} />
-        </View>
-      </MapboxGL.MarkerView>
-
       {usersList?.map((marker, index) => {
-        if (marker.id == user.uid) return null;
+        if (marker.id == user.uid)
+          return <CurrentUserMarker key={index + 'm_m'} />;
         return (
           <TouchableOpacity
             key={index}
@@ -60,7 +41,7 @@ export const MapMarkers = () => {
             }}>
             <MapboxGL.MarkerView
               id="My_marker"
-              coordinate={[marker._data.latitude, marker._data.longitude]}>
+              coordinate={[marker._data.longitude, marker._data.latitude]}>
               <View
                 style={{
                   width: 30,
@@ -82,5 +63,24 @@ export const MapMarkers = () => {
         );
       })}
     </>
+  );
+};
+
+export const CurrentUserMarker = () => {
+  const map = useSelector((state: GlobalState) => state.map);
+  const [coords, setCoords] = useState<MapCoordinates>(map.coords);
+
+  useEffect(() => setCoords(map.coords), [map]);
+
+  return (
+    <MapboxGL.MarkerView id="My_marker" coordinate={[coords[0], coords[1]]}>
+      <View
+        style={{
+          width: 30,
+          height: 30,
+        }}>
+        <Navigation size={30} colors={[Colors.Primary200, Colors.Primary300]} />
+      </View>
+    </MapboxGL.MarkerView>
   );
 };

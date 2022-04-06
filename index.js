@@ -1,16 +1,16 @@
 import React from 'react';
 import {AppRegistry} from 'react-native';
 import {Provider} from 'react-redux';
-// import messaging from '@react-native-firebase/messaging';
+import messaging from '@react-native-firebase/messaging';
 import App from './App';
 import {store} from './src/redux/store';
 import {name as appName} from './app.json';
 import 'react-native-gesture-handler';
 
-// messaging().setBackgroundMessageHandler(remoteMessage => {
-//   console.log('Message handled in the background!', remoteMessage);
-//   return handleNotification(remoteMessage, store.dispatch);
-// });
+messaging().setBackgroundMessageHandler(remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+  // return handleNotification(remoteMessage, store.dispatch);
+});
 
 /**
  * On iOS however, when a message is received

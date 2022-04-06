@@ -3,7 +3,7 @@ import {Colors} from '../../../../configs';
 export const styles = {
   Events: {
     flex: 1,
-    backgroundColor: Colors.colorBlack,
+    backgroundColor: Colors.Neutral300,
   },
   EventsList: {
     paddingHorizontal: 20,

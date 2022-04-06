@@ -18,7 +18,8 @@ export const styles = {
     borderRadius: 150,
     marginTop: -75,
     borderWidth: 4,
-    borderColor: Colors.colorBlack,
+    borderColor: Colors.Neutral300,
+    backgroundColor: Colors.Neutral300,
   },
   MemberName: {
     fontFamily: 'Poppins-Medium',

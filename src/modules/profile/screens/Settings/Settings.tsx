@@ -40,7 +40,7 @@ const Settings = ({navigation}) => {
         <FadeIn delay={100}>
           <View style={style.SettingsBlock}>
             <View style={style.SettingsIcon}>
-              <Lock size={15} color={Colors.colorMain} />
+              <Lock size={15} color={Colors.Primary200} />
             </View>
             <Text style={style.SettingsName}>Change Password</Text>
             <View style={style.ChevronHolder}>
@@ -53,7 +53,7 @@ const Settings = ({navigation}) => {
         <FadeIn delay={200}>
           <View style={{...style.SettingsBlock, opacity: 0.5}}>
             <View style={style.SettingsIcon}>
-              <Talk size={15} color={Colors.colorMain} />
+              <Talk size={15} color={Colors.Primary200} />
             </View>
             <Text style={style.Soon}>Soon!</Text>
             <Text style={style.SettingsName}>Feedback</Text>
@@ -67,7 +67,7 @@ const Settings = ({navigation}) => {
         <FadeIn delay={300}>
           <View style={style.SettingsBlock}>
             <View style={style.SettingsIcon}>
-              <Shield size={15} color={Colors.colorMain} />
+              <Shield size={15} color={Colors.Primary200} />
             </View>
             <Text style={style.SettingsName}>Privacy and Security</Text>
             <View style={style.ChevronHolder}>

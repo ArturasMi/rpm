@@ -6,7 +6,7 @@ export const styles = {
   Register: {
     flex: 1,
     paddingHorizontal: containerPadding,
-    backgroundColor: Colors.colorBlack,
+    backgroundColor: Colors.Neutral300,
   },
   RegisterInfo: {
     fontFamily: 'Poppins-Regular',

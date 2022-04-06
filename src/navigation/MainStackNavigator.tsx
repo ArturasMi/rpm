@@ -26,7 +26,7 @@ export const MainStackNavigator = () => {
           right: 20,
           bottom: 20,
           borderRadius: 20,
-          backgroundColor: Colors.colorBlack,
+          backgroundColor: Colors.Neutral300,
           borderTopWidth: 0,
           elevation: 20,
         },
@@ -39,7 +39,7 @@ export const MainStackNavigator = () => {
           tabBarIcon: ({focused}) => (
             <HomeIcon
               size={20}
-              color={focused ? Colors.colorMain : '#41414e'}
+              color={focused ? Colors.Primary200 : '#41414e'}
             />
           ),
         }}
@@ -52,7 +52,7 @@ export const MainStackNavigator = () => {
           tabBarIcon: ({focused}) => (
             <EventsIcon
               size={20}
-              color={focused ? Colors.colorMain : '#41414e'}
+              color={focused ? Colors.Primary200 : '#41414e'}
             />
           ),
         }}
@@ -63,7 +63,10 @@ export const MainStackNavigator = () => {
         options={{
           tabBarLabel: () => <></>,
           tabBarIcon: ({focused}) => (
-            <MapIcon size={20} color={focused ? Colors.colorMain : '#41414e'} />
+            <MapIcon
+              size={20}
+              color={focused ? Colors.Primary200 : '#41414e'}
+            />
           ),
         }}
       />
@@ -75,7 +78,7 @@ export const MainStackNavigator = () => {
           tabBarIcon: ({focused}) => (
             <GalleryIcon
               size={20}
-              color={focused ? Colors.colorMain : '#41414e'}
+              color={focused ? Colors.Primary200 : '#41414e'}
             />
           ),
         }}
@@ -88,7 +91,7 @@ export const MainStackNavigator = () => {
           tabBarIcon: ({focused}) => (
             <ProfileIcon
               size={20}
-              color={focused ? Colors.colorMain : '#41414e'}
+              color={focused ? Colors.Primary200 : '#41414e'}
             />
           ),
         }}

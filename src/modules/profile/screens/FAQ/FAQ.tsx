@@ -105,7 +105,7 @@ export const FAQ = ({navigation}) => {
           <FadeIn delay={100}>
             <View style={style.Block}>
               <View style={style.BlockIcon}>
-                <PaperPlane size={15} color={Colors.colorMain} />
+                <PaperPlane size={15} color={Colors.Primary200} />
               </View>
               <Text style={style.BlockName}>Send a letter</Text>
               <View style={style.ChevronHolder}></View>

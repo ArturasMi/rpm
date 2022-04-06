@@ -1,23 +1,29 @@
 import Geolocation from '@react-native-community/geolocation';
 import {MapActions} from '../../../redux/reducers/map/actions';
-import {MapCoordinates} from '../../../redux/reducers/map/types';
+import {
+  CameraMode,
+  CameraState,
+  MapCoordinates,
+} from '../../../redux/reducers/map/types';
 import {AppDispatch, store} from '../../../redux/store';
 import firestore from '@react-native-firebase/firestore';
 
 export class MapViewModel {
   constructor(private dispatch: AppDispatch) {}
 
-  setCurrentLocation = () => {
+  init = () => {
     const user = store.getState().auth;
-    Geolocation.getCurrentPosition(info => {
-      this.dispatch(
-        MapActions.setCoords([info.coords.longitude, info.coords.latitude]),
-      );
 
-      firestore().collection('map').doc(user.uid).update({
-        longitute: info.coords.longitude,
-        latitute: info.coords.latitude,
-      });
+    this.centerCamera(async (coords: MapCoordinates) => {
+      firestore()
+        .collection('map')
+        .doc(user.uid)
+        .set({
+          ...user.profile,
+          lastupdate: Date.now(),
+          longitude: coords[0],
+          latitude: coords[1],
+        });
     });
   };
 
@@ -28,16 +34,31 @@ export class MapViewModel {
   displayNavigationRoute = (coords: MapCoordinates) => {
     this.displayUserDetails(undefined);
     this.dispatch(MapActions.displayNavigationRoute(coords));
+    this.centerCamera();
+
+    setTimeout(() => {
+      this.dispatch(
+        MapActions.setCamera({
+          mode: CameraMode.COURSE,
+        }),
+      );
+    });
   };
 
-  setZoom = (number: number) => {
-    this.dispatch(MapActions.setZoom(number));
-  };
+  centerCamera = (callback?: any) => {
+    this.dispatch(
+      MapActions.setCamera({
+        state: CameraState.BEGIN,
+        zoom: 18,
+      }),
+    );
+    Geolocation.getCurrentPosition(info => {
+      this.dispatch(
+        MapActions.setCoords([info.coords.longitude, info.coords.latitude]),
+      );
 
-  centerCamera = async () => {
-    // const currentLocation = await this.getCurrentLocation();
-    // if (currentLocation)
-    //   this.dispatch(MapActions.setCoords([25.279043, 54.6711717]));
+      callback?.([info.coords.longitude, info.coords.latitude]);
+    });
   };
 
   enablePinpinting = () => {
@@ -46,9 +67,5 @@ export class MapViewModel {
 
   disablePinpinting = () => {
     this.dispatch(MapActions.setPinpointing(false));
-  };
-
-  getCurrentPointLocation = (): MapCoordinates => {
-    return [25.2659016, 54.6888759];
   };
 }
